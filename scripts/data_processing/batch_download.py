@@ -206,8 +206,8 @@ def main(argv):
 
         # keep going if we meet an exception
         #
-        except Exception:
-            print("Video " + name + " is unavailable for download.")
+        except Exception as e:
+            print("Video " + name + " is unavailable for download." + "Error is due to: " + str(e))
             num_unavailable += 1
             continue
 

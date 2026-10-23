@@ -126,6 +126,11 @@ model.load_weights(os.path.join(MDL_DIR, MDL_WGT))
 #
 app = Flask(__name__)
 
+# cap the request body so oversized uploads are rejected with 413 before
+# they are buffered and decoded (a valid clip is 300000 bytes, ~400KB base64)
+#
+app.config['MAX_CONTENT_LENGTH'] = 512 * 1024
+
 def preprocess(inp):
     inp = cv2.resize(inp, (150, 150), interpolation = cv2.INTER_AREA)
     inp = inp.astype(np.float32)
